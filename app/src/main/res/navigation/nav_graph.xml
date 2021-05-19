@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainLibraryFragment">
+
+    <fragment
+        android:id="@+id/mainLibraryFragment"
+        android:name="com.ls.wrenslibrary.MainLibraryFragment"
+        android:label="fragment_main_library"
+        tools:layout="@layout/fragment_main_library" >
+        <action
+            android:id="@+id/action_mainLibraryFragment_to_addBookFragment"
+            app:destination="@id/addBookFragment" />
+        <action
+            android:id="@+id/action_mainLibraryFragment_to_editBookFragment"
+            app:destination="@id/editBookFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addBookFragment"
+        android:name="com.ls.wrenslibrary.AddBookFragment"
+        android:label="fragment_add_book"
+        tools:layout="@layout/fragment_add_book" />
+    <fragment
+        android:id="@+id/editBookFragment"
+        android:name="com.ls.wrenslibrary.EditBookFragment"
+        android:label="fragment_edit_book"
+        tools:layout="@layout/fragment_edit_book" />
+</navigation>
