@@ -23,6 +23,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONStringer;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,7 +70,7 @@ public class AddBookFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         RequestQueue queue = Volley.newRequestQueue(getContext());
-        String url = "https://www.googleapis.com/books/v1/volumes?q=isbn:0307432866";
+        String url = "https://www.googleapis.com/books/v1/volumes?q=isbn:8868830841";
         isbnET = (EditText)view.findViewById(R.id.isbn_input_et);
         isbnSearchBtn = (Button)view.findViewById(R.id.isbn_search_btn);
 
@@ -81,7 +82,12 @@ public class AddBookFragment extends Fragment {
 //                        System.out.println(response.toString());
                         try {
                             JSONArray resultArray = response.getJSONArray("items");
-                            
+                            JSONObject volumeInfo = resultArray.getJSONObject(0);
+//                            System.out.println(volumeInfo);
+                            JSONObject s = volumeInfo.getJSONObject("volumeInfo");
+                            String name =  s.getString("authors");
+                            name = name.substring(2,name.length()-2);
+                            isbnET.setText(name);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
