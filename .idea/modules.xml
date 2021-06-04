@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/wrens-library-android.iml" filepath="$PROJECT_DIR$/.idea/wrens-library-android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/WrensLibrary.iml" filepath="$PROJECT_DIR$/.idea/modules/WrensLibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/WrensLibrary.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/WrensLibrary.app.iml" />
     </modules>
   </component>
 </project>
