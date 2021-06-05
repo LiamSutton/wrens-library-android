@@ -82,12 +82,23 @@ public class AddBookFragment extends Fragment {
 //                        System.out.println(response.toString());
                         try {
                             JSONArray resultArray = response.getJSONArray("items");
-                            JSONObject volumeInfo = resultArray.getJSONObject(0);
-//                            System.out.println(volumeInfo);
-                            JSONObject s = volumeInfo.getJSONObject("volumeInfo");
-                            String name =  s.getString("authors");
-                            name = name.substring(2,name.length()-2);
-                            isbnET.setText(name);
+                            JSONObject resultObject = resultArray.getJSONObject(0);
+
+                            JSONObject volumeInfo = resultObject.getJSONObject("volumeInfo");
+                            JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
+
+                            String authorName =  volumeInfo.getString("authors");
+                            String bookTitle = volumeInfo.getString(("title"));
+                            String bookCategory = volumeInfo.getString("categories");
+                            String datePublished = volumeInfo.getString("publishedDate");
+                            String coverImage = imageLinks.getString("thumbnail");
+
+                            authorName = authorName.substring(2,authorName.length()-2);
+                            bookCategory = bookCategory.substring(2, bookCategory.length()-2);
+
+                            String info = String.format("TItle: %s \nAuthor: %s \nPublished: %s \nThumbnail: %s \nCategory: %s",
+                                    bookTitle, authorName, datePublished, coverImage, bookCategory);
+                            System.out.println(info);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
