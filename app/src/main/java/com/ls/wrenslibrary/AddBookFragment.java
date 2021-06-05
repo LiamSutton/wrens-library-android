@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,11 +21,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONStringer;
+import org.w3c.dom.Text;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -64,6 +68,11 @@ public class AddBookFragment extends Fragment {
     }
 
     EditText isbnET;
+    TextView bookTitleTV;
+    TextView bookAuthorTV;
+    TextView bookGenreTV;
+    TextView bookDatePublishedTV;
+    ImageView bookCoverIV;
     Button isbnSearchBtn;
     RequestQueue queue;
     @Override
@@ -71,6 +80,11 @@ public class AddBookFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         queue = Volley.newRequestQueue(getContext());
         isbnET = (EditText)view.findViewById(R.id.isbn_input_et);
+        bookTitleTV = (TextView)view.findViewById(R.id.tv_book_name);
+        bookAuthorTV = (TextView)view.findViewById(R.id.tv_book_author);
+        bookGenreTV = (TextView)view.findViewById(R.id.tv_book_genre);
+        bookDatePublishedTV = (TextView)view.findViewById(R.id.tv_book_published_date);
+        bookCoverIV = (ImageView)view.findViewById(R.id.cover_image_iv);
         isbnSearchBtn = (Button)view.findViewById(R.id.isbn_search_btn);
 
         isbnSearchBtn.setOnClickListener(new View.OnClickListener() {
@@ -100,13 +114,19 @@ public class AddBookFragment extends Fragment {
                             String bookCategory = volumeInfo.getString("categories");
                             String datePublished = volumeInfo.getString("publishedDate");
                             String coverImage = imageLinks.getString("thumbnail");
-
+                            String altered = coverImage.replace("http", "https");
+                            String test = "https://www.google.com";
+                            System.out.println(test);
                             authorName = authorName.substring(2,authorName.length()-2);
                             bookCategory = bookCategory.substring(2, bookCategory.length()-2);
 
-                            String info = String.format("TItle: %s \nAuthor: %s \nPublished: %s \nThumbnail: %s \nCategory: %s",
-                                    bookTitle, authorName, datePublished, coverImage, bookCategory);
-                            System.out.println(info);
+                            bookTitleTV.setText(bookTitle);
+                            bookAuthorTV.setText(authorName);
+                            bookGenreTV.setText(bookCategory);
+                            bookDatePublishedTV.setText(datePublished);
+                            System.out.println(altered);
+                            Picasso.get().load(altered).into(bookCoverIV);
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
