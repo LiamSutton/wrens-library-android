@@ -65,15 +65,23 @@ public class AddBookFragment extends Fragment {
 
     EditText isbnET;
     Button isbnSearchBtn;
-
+    RequestQueue queue;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        RequestQueue queue = Volley.newRequestQueue(getContext());
-        String url = "https://www.googleapis.com/books/v1/volumes?q=isbn:8868830841";
+        queue = Volley.newRequestQueue(getContext());
         isbnET = (EditText)view.findViewById(R.id.isbn_input_et);
         isbnSearchBtn = (Button)view.findViewById(R.id.isbn_search_btn);
 
+        isbnSearchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                performBookLookup();
+            }
+        });
+    }
+    private void performBookLookup() {
+        String url = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbnET.getText();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -114,7 +122,6 @@ public class AddBookFragment extends Fragment {
                 });
         queue.add(jsonObjectRequest);
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
