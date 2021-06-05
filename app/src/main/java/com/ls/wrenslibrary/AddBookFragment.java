@@ -1,5 +1,6 @@
 package com.ls.wrenslibrary;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -66,7 +67,13 @@ public class AddBookFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
+//    private static final String[] genres =
+//            {       "Action", "Adult Fantasy", "Adventure", "Autobiography", "Biography", "Childrens",
+//                    "Classics", "Comedy", "Cookbook", "Dark Fantasy", "Detective", "Dystopian",
+//                    "Educational", "Fantasy", "Fiction", "Graphic Novel", "Historical Fiction",
+//                    "History", "Horror", "Manga", "Poetry", "Romance", "Science Fiction",
+//                    "Self-Help", "Short Stories"
+//            };
     EditText isbnET;
     TextView bookTitleTV;
     TextView bookAuthorTV;
@@ -74,6 +81,7 @@ public class AddBookFragment extends Fragment {
     TextView bookDatePublishedTV;
     ImageView bookCoverIV;
     Button isbnSearchBtn;
+    Button addBookBtn;
     RequestQueue queue;
     Book currentBook;
     @Override
@@ -87,11 +95,19 @@ public class AddBookFragment extends Fragment {
         bookDatePublishedTV = (TextView)view.findViewById(R.id.tv_book_published_date);
         bookCoverIV = (ImageView)view.findViewById(R.id.iv_cover_image);
         isbnSearchBtn = (Button)view.findViewById(R.id.isbn_search_btn);
+        addBookBtn = (Button)view.findViewById(R.id.btn_add_book);
+
 
         isbnSearchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 performBookLookup();
+            }
+        });
+
+        addBookBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
             }
         });
     }
