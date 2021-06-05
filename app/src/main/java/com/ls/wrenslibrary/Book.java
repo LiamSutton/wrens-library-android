@@ -10,8 +10,9 @@ public class Book {
     private String datePublished;
     private String dateCreated;
     private String cover;
+    private boolean hasRead;
 
-    public Book(int id, String title, String author, String genre, String isbn, String datePublished, String dateCreated, String cover) {
+    public Book(int id, String title, String author, String genre, String isbn, String datePublished, String dateCreated, String cover, boolean hasRead) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -20,6 +21,7 @@ public class Book {
         this.datePublished = datePublished;
         this.dateCreated = dateCreated;
         this.cover = cover;
+        this.hasRead = hasRead;
     }
 
     public int getId() {
@@ -53,4 +55,6 @@ public class Book {
     public String getCover() {
         return cover;
     }
+
+    public boolean getHasRead() { return hasRead; }
 }

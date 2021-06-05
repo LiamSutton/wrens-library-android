@@ -75,6 +75,7 @@ public class AddBookFragment extends Fragment {
     ImageView bookCoverIV;
     Button isbnSearchBtn;
     RequestQueue queue;
+    Book currentBook;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -84,7 +85,7 @@ public class AddBookFragment extends Fragment {
         bookAuthorTV = (TextView)view.findViewById(R.id.tv_book_author);
         bookGenreTV = (TextView)view.findViewById(R.id.tv_book_genre);
         bookDatePublishedTV = (TextView)view.findViewById(R.id.tv_book_published_date);
-        bookCoverIV = (ImageView)view.findViewById(R.id.cover_image_iv);
+        bookCoverIV = (ImageView)view.findViewById(R.id.iv_cover_image);
         isbnSearchBtn = (Button)view.findViewById(R.id.isbn_search_btn);
 
         isbnSearchBtn.setOnClickListener(new View.OnClickListener() {
@@ -126,7 +127,6 @@ public class AddBookFragment extends Fragment {
                             bookDatePublishedTV.setText(datePublished);
                             System.out.println(altered);
                             Picasso.get().load(altered).into(bookCoverIV);
-
 
                         } catch (JSONException e) {
                             e.printStackTrace();
