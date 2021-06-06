@@ -1,6 +1,7 @@
 package com.ls.wrenslibrary;
 
 import androidx.room.Dao;
+import androidx.room.Ignore;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -13,6 +14,9 @@ public interface GenreDao {
 
     @Query("SELECT g_id FROM Genre WHERE g_name = (:g_name)")
     Genre getGenreIdByName(String g_name);
+
+    @Query("SELECT g_name from genre")
+    List<String> getAllGenreNames();
 
     @Query("SELECT COUNT(*) FROM genre")
     int Count();

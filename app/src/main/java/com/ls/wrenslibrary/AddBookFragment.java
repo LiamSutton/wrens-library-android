@@ -1,6 +1,7 @@
 package com.ls.wrenslibrary;
 
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -33,6 +34,8 @@ import org.json.JSONObject;
 import org.json.JSONStringer;
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -82,6 +85,8 @@ public class AddBookFragment extends Fragment {
     Button addBookBtn;
     RequestQueue queue;
     Spinner genreSP;
+    List<String> genreNames;
+    ArrayAdapter<String> spinnderAdapter;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -95,7 +100,17 @@ public class AddBookFragment extends Fragment {
         bookCoverIV = (ImageView)view.findViewById(R.id.iv_cover_image);
         isbnSearchBtn = (Button)view.findViewById(R.id.isbn_search_btn);
         addBookBtn = (Button)view.findViewById(R.id.btn_add_book);
-
+        Executors.newSingleThreadExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                genreNames = LibraryDatabase.getInstance(getContext()).genreDao().getAllGenreNames();
+                spinnderAdapter = new ArrayAdapter<>(getContext(), R.layout.custom_spinner_layout, genreNames);
+                spinnderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                genreSP.setAdapter(spinnderAdapter);
+                spinnderAdapter.notifyDataSetChanged();
+             }
+        });
+        genreSP.setSelection(0);
 
         isbnSearchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
