@@ -65,22 +65,6 @@
         app:layout_constraintVertical_bias="0.968" />
 
     <TextView
-        android:id="@+id/tv_book_genre"
-        android:layout_width="375dp"
-        android:layout_height="27dp"
-        android:gravity="center_horizontal"
-        android:text="Genre"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.48" />
-
-    <TextView
         android:id="@+id/tv_book_name"
         android:layout_width="372dp"
         android:layout_height="42dp"
@@ -139,5 +123,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.803" />
+
+    <Spinner
+        android:id="@+id/sp_genres"
+        android:layout_width="362dp"
+        android:layout_height="28dp"
+        tools:layout_editor_absoluteX="22dp"
+        tools:layout_editor_absoluteY="337dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

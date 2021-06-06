@@ -14,9 +14,13 @@ public interface GenreDao {
     @Query("SELECT g_id FROM Genre WHERE g_name = (:g_name)")
     Genre getGenreIdByName(String g_name);
 
+    @Query("SELECT COUNT(*) FROM genre")
+    int Count();
+
     @Insert
     void populateGenres(Genre... genres);
 
     @Insert
     void insertGenre(Genre genre);
+
 }

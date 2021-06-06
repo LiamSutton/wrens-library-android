@@ -10,9 +10,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -71,22 +73,15 @@ public class AddBookFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-//    private static final String[] genres =
-//            {       "Action", "Adult Fantasy", "Adventure", "Autobiography", "Biography", "Childrens",
-//                    "Classics", "Comedy", "Cookbook", "Dark Fantasy", "Detective", "Dystopian",
-//                    "Educational", "Fantasy", "Fiction", "Graphic Novel", "Historical Fiction",
-//                    "History", "Horror", "Manga", "Poetry", "Romance", "Science Fiction",
-//                    "Self-Help", "Short Stories"
-//            };
     EditText isbnET;
     TextView bookTitleTV;
     TextView bookAuthorTV;
-    TextView bookGenreTV;
     TextView bookDatePublishedTV;
     ImageView bookCoverIV;
     Button isbnSearchBtn;
     Button addBookBtn;
     RequestQueue queue;
+    Spinner genreSP;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -95,7 +90,7 @@ public class AddBookFragment extends Fragment {
         isbnET = (EditText)view.findViewById(R.id.isbn_input_et);
         bookTitleTV = (TextView)view.findViewById(R.id.tv_book_name);
         bookAuthorTV = (TextView)view.findViewById(R.id.tv_book_author);
-        bookGenreTV = (TextView)view.findViewById(R.id.tv_book_genre);
+        genreSP = (Spinner)view.findViewById(R.id.sp_genres);
         bookDatePublishedTV = (TextView)view.findViewById(R.id.tv_book_published_date);
         bookCoverIV = (ImageView)view.findViewById(R.id.iv_cover_image);
         isbnSearchBtn = (Button)view.findViewById(R.id.isbn_search_btn);
@@ -150,7 +145,6 @@ public class AddBookFragment extends Fragment {
 
                             bookTitleTV.setText(bookTitle);
                             bookAuthorTV.setText(authorName);
-                            bookGenreTV.setText(bookCategory);
                             bookDatePublishedTV.setText(datePublished);
                             System.out.println(altered);
                             Picasso.get().load(altered).into(bookCoverIV);

@@ -24,6 +24,9 @@ public class Genre {
         this.g_name = g_name;
     }
 
+    @Ignore
+    public Genre() {}
+
 
     public int getG_id() {
         return g_id;
@@ -32,4 +35,14 @@ public class Genre {
     public String getG_name() {
         return g_name;
     }
+
+    public void setG_name(String g_name) {this.g_name = g_name;}
+
+    public static final String[] genres =
+            {       "Action", "Adult Fantasy", "Adventure", "Autobiography", "Biography", "Childrens",
+                    "Classics", "Comedy", "Cookbook", "Dark Fantasy", "Detective", "Dystopian",
+                    "Educational", "Fantasy", "Fiction", "Graphic Novel", "Historical Fiction",
+                    "History", "Horror", "Manga", "Poetry", "Romance", "Science Fiction",
+                    "Self-Help", "Short Stories"
+            };
 }
