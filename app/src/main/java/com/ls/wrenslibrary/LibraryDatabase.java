@@ -13,12 +13,13 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.concurrent.Executors;
 
-@Database(entities = {Author.class, Genre.class, Book.class}, version = 1)
+@Database(entities = {Author.class, Genre.class, Book.class, BookDisplay.class}, version = 1)
 @TypeConverters({Converters.class})
 public abstract class LibraryDatabase extends RoomDatabase {
     public abstract AuthorDao authorDao();
     public abstract GenreDao genreDao();
     public abstract BookDao bookDao();
+    public abstract BookDisplayDao bookDisplayDao();
 
     private static volatile  LibraryDatabase INSTANCE;
 
