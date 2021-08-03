@@ -8,14 +8,17 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.concurrent.Executors;
 
-@Database(entities = {Author.class, Genre.class}, version = 1)
+@Database(entities = {Author.class, Genre.class, Book.class}, version = 1)
+@TypeConverters({Converters.class})
 public abstract class LibraryDatabase extends RoomDatabase {
     public abstract AuthorDao authorDao();
     public abstract GenreDao genreDao();
+    public abstract BookDao bookDao();
 
     private static volatile  LibraryDatabase INSTANCE;
 
