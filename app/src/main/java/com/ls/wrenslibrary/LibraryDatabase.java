@@ -15,7 +15,6 @@ import java.util.concurrent.Executors;
 @Database(entities = {Author.class, Genre.class}, version = 1)
 public abstract class LibraryDatabase extends RoomDatabase {
     public abstract AuthorDao authorDao();
-
     public abstract GenreDao genreDao();
 
     private static volatile  LibraryDatabase INSTANCE;
