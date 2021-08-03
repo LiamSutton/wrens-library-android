@@ -34,7 +34,9 @@ import org.json.JSONObject;
 import org.json.JSONStringer;
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -87,6 +89,7 @@ public class AddBookFragment extends Fragment {
     Spinner genreSP;
     List<String> genreNames;
     ArrayAdapter<String> spinnderAdapter;
+    String imageUrl;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -121,12 +124,40 @@ public class AddBookFragment extends Fragment {
 
         addBookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Genre g = new Genre("test");
+            public void onClick(View v) {
                 Executors.newSingleThreadExecutor().execute(new Runnable() {
                     @Override
                     public void run() {
-                        LibraryDatabase.getInstance(getContext()).genreDao().insertGenre(g);
+
+                        // perform book duplicate check
+                        BookDao bookDao = LibraryDatabase.getInstance(getContext()).bookDao();
+                        Book book = bookDao.getBookByName(bookTitleTV.getText().toString());
+                        if (book == null) {
+                            // perform author check
+                            AuthorDao authorDao = LibraryDatabase.getInstance(getContext()).authorDao();
+                            Author author = authorDao.getAuthorByName(bookAuthorTV.getText().toString());
+                            if (author == null) {
+                                authorDao.insertAuthor(new Author(bookAuthorTV.getText().toString()));
+                                System.out.println("CREATED NEW AUTHOR");
+                                // re-init author to newly created one
+                                author = authorDao.getAuthorByName(bookAuthorTV.getText().toString());
+                            }
+
+                            // perform genre duplicate check
+                            GenreDao genreDao = LibraryDatabase.getInstance(getContext()).genreDao();
+                            Genre genre = genreDao.getGenreIdByName(genreSP.getSelectedItem().toString());
+
+                            if (genre == null) {
+                                genreDao.insertGenre(new Genre(genreSP.getSelectedItem().toString()));
+                                genre = genreDao.getGenreIdByName(genreSP.getSelectedItem().toString());
+                                Toast.makeText(getContext(), genre.getG_name().toString(), Toast.LENGTH_LONG);
+                            }
+                            System.out.println(imageUrl);
+                            bookDao.insertBook(new Book(bookTitleTV.getText().toString(), author.getA_id(), genre.getG_id(), new Date(), imageUrl, false, new Date()));
+                        }
+                        else {
+                            System.out.println("DUPLICATE BOOK");
+                        }
                     }
                 });
             }
@@ -153,16 +184,16 @@ public class AddBookFragment extends Fragment {
                             String datePublished = volumeInfo.getString("publishedDate");
                             String coverImage = imageLinks.getString("thumbnail");
                             String altered = coverImage.replace("http", "https");
-                            String test = "https://www.google.com";
-                            System.out.println(test);
                             authorName = authorName.substring(2,authorName.length()-2);
                             bookCategory = bookCategory.substring(2, bookCategory.length()-2);
 
                             bookTitleTV.setText(bookTitle);
                             bookAuthorTV.setText(authorName);
                             bookDatePublishedTV.setText(datePublished);
-                            System.out.println(altered);
+                            imageUrl = altered;
+                            System.out.println("IMAGE URL: " + imageUrl);
                             Picasso.get().load(altered).into(bookCoverIV);
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();

@@ -2,6 +2,7 @@ package com.ls.wrenslibrary;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverter;
 
@@ -35,6 +36,17 @@ public class Book {
 
     public Book(int b_id, String b_name, int b_author_id, int b_genre_id, Date b_date_published, String b_cover, boolean b_has_read, Date b_date_added) {
         this.b_id = b_id;
+        this.b_name = b_name;
+        this.b_author_id = b_author_id;
+        this.b_genre_id = b_genre_id;
+        this.b_date_published = b_date_published;
+        this.b_cover = b_cover;
+        this.b_has_read = b_has_read;
+        this.b_date_added = b_date_added;
+    }
+
+    @Ignore
+    public Book(String b_name, int b_author_id, int b_genre_id, Date b_date_published, String b_cover, boolean b_has_read, Date b_date_added) {
         this.b_name = b_name;
         this.b_author_id = b_author_id;
         this.b_genre_id = b_genre_id;
