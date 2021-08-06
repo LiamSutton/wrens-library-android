@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/mainLibraryFragment"
         android:name="com.ls.wrenslibrary.MainLibraryFragment"
-        android:label="fragment_main_library"
+        android:label="Library"
         tools:layout="@layout/fragment_main_library" >
         <action
             android:id="@+id/action_mainLibraryFragment_to_addBookFragment"
@@ -20,11 +20,11 @@
     <fragment
         android:id="@+id/addBookFragment"
         android:name="com.ls.wrenslibrary.AddBookFragment"
-        android:label="fragment_add_book"
+        android:label="Add A New Book"
         tools:layout="@layout/fragment_add_book" />
     <fragment
         android:id="@+id/editBookFragment"
         android:name="com.ls.wrenslibrary.EditBookFragment"
-        android:label="fragment_edit_book"
+        android:label="Edit Book"
         tools:layout="@layout/fragment_edit_book" />
 </navigation>

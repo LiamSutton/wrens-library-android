@@ -71,26 +71,15 @@ public class MainLibraryFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_main_library, container, false);
     }
 
-    private NavController navController;
-    private Button addNewBookButton;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        navController = Navigation.findNavController(view);
 
         // Populate database if required.
         Executors.newSingleThreadExecutor().execute(new Runnable() {
             @Override
             public void run() {
                 LibraryDatabase.getInstance(getContext());
-            }
-        });
-        addNewBookButton = (Button)view.findViewById(R.id.btn_add_new_book);
-        addNewBookButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.navigate(R.id.action_mainLibraryFragment_to_addBookFragment);
             }
         });
     }
