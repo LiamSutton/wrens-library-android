@@ -1,5 +1,6 @@
 package com.ls.wrenslibrary;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -48,15 +49,6 @@ import java.util.concurrent.Executors;
  */
 public class AddBookFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     public AddBookFragment() {
         // Required empty public constructor
     }
@@ -73,8 +65,6 @@ public class AddBookFragment extends Fragment {
     public static AddBookFragment newInstance(String param1, String param2) {
         AddBookFragment fragment = new AddBookFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -90,6 +80,7 @@ public class AddBookFragment extends Fragment {
     List<String> genreNames;
     ArrayAdapter<String> spinnderAdapter;
     String imageUrl;
+    Context context;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -125,41 +116,7 @@ public class AddBookFragment extends Fragment {
         addBookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Executors.newSingleThreadExecutor().execute(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        // perform book duplicate check
-                        BookDao bookDao = LibraryDatabase.getInstance(getContext()).bookDao();
-                        Book book = bookDao.getBookByName(bookTitleTV.getText().toString());
-                        if (book == null) {
-                            // perform author check
-                            AuthorDao authorDao = LibraryDatabase.getInstance(getContext()).authorDao();
-                            Author author = authorDao.getAuthorByName(bookAuthorTV.getText().toString());
-                            if (author == null) {
-                                authorDao.insertAuthor(new Author(bookAuthorTV.getText().toString()));
-                                System.out.println("CREATED NEW AUTHOR");
-                                // re-init author to newly created one
-                                author = authorDao.getAuthorByName(bookAuthorTV.getText().toString());
-                            }
-
-                            // perform genre duplicate check
-                            GenreDao genreDao = LibraryDatabase.getInstance(getContext()).genreDao();
-                            Genre genre = genreDao.getGenreIdByName(genreSP.getSelectedItem().toString());
-
-                            if (genre == null) {
-                                genreDao.insertGenre(new Genre(genreSP.getSelectedItem().toString()));
-                                genre = genreDao.getGenreIdByName(genreSP.getSelectedItem().toString());
-                                Toast.makeText(getContext(), genre.getG_name().toString(), Toast.LENGTH_LONG);
-                            }
-                            System.out.println(imageUrl);
-                            bookDao.insertBook(new Book(bookTitleTV.getText().toString(), author.getA_id(), genre.getG_id(), new Date(), imageUrl, false, new Date()));
-                        }
-                        else {
-                            System.out.println("DUPLICATE BOOK");
-                        }
-                    }
-                });
+                Toast.makeText(getContext(), "ADDING BOOK", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -212,10 +169,7 @@ public class AddBookFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        context = getContext();
     }
 
     @Override
