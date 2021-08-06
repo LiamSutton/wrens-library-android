@@ -22,9 +22,6 @@ public class Book {
     @ColumnInfo(name = "b_genre_id")
     private int b_genre_id;
 
-    @ColumnInfo(name = "b_date_published")
-    private Date b_date_published;
-
     @ColumnInfo(name = "b_cover")
     private String b_cover;
 
@@ -34,23 +31,21 @@ public class Book {
     @ColumnInfo(name = "b_date_added")
     private Date b_date_added;
 
-    public Book(int b_id, String b_name, int b_author_id, int b_genre_id, Date b_date_published, String b_cover, boolean b_has_read, Date b_date_added) {
+    public Book(int b_id, String b_name, int b_author_id, int b_genre_id, String b_cover, boolean b_has_read, Date b_date_added) {
         this.b_id = b_id;
         this.b_name = b_name;
         this.b_author_id = b_author_id;
         this.b_genre_id = b_genre_id;
-        this.b_date_published = b_date_published;
         this.b_cover = b_cover;
         this.b_has_read = b_has_read;
         this.b_date_added = b_date_added;
     }
 
     @Ignore
-    public Book(String b_name, int b_author_id, int b_genre_id, Date b_date_published, String b_cover, boolean b_has_read, Date b_date_added) {
+    public Book(String b_name, int b_author_id, int b_genre_id, String b_cover, boolean b_has_read, Date b_date_added) {
         this.b_name = b_name;
         this.b_author_id = b_author_id;
         this.b_genre_id = b_genre_id;
-        this.b_date_published = b_date_published;
         this.b_cover = b_cover;
         this.b_has_read = b_has_read;
         this.b_date_added = b_date_added;
@@ -70,10 +65,6 @@ public class Book {
 
     public int getB_genre_id() {
         return b_genre_id;
-    }
-
-    public Date getB_date_published() {
-        return b_date_published;
     }
 
     public String getB_cover() {
