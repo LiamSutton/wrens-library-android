@@ -79,7 +79,7 @@ public class AddBookFragment extends Fragment {
     Spinner genreSP;
     List<String> genreNames;
     ArrayAdapter<String> spinnderAdapter;
-    String imageUrl;
+    BookJsonParser bookJsonParser;
     Context context;
 
     @Override
@@ -122,48 +122,20 @@ public class AddBookFragment extends Fragment {
     }
     private void performBookLookup() {
         String url = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbnET.getText();
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
 
-                    @Override
-                    public void onResponse(JSONObject response) {
-//                        System.out.println(response.toString());
-                        try {
-                            JSONArray resultArray = response.getJSONArray("items");
-                            JSONObject resultObject = resultArray.getJSONObject(0);
+            try {
+                bookJsonParser = new BookJsonParser(response);
+                bookTitleTV.setText(bookJsonParser.getBookName());
+                bookAuthorTV.setText(bookJsonParser.getBookAuthor());
+                Picasso.get().load(bookJsonParser.getBookCoverImageUrl()).into(bookCoverIV);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            }, error -> {
+            // TODO: Handle error
+         });
 
-                            JSONObject volumeInfo = resultObject.getJSONObject("volumeInfo");
-                            JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
-
-                            String authorName =  volumeInfo.getString("authors");
-                            String bookTitle = volumeInfo.getString(("title"));
-                            String bookCategory = volumeInfo.getString("categories");
-                            String datePublished = volumeInfo.getString("publishedDate");
-                            String coverImage = imageLinks.getString("thumbnail");
-                            String altered = coverImage.replace("http", "https");
-                            authorName = authorName.substring(2,authorName.length()-2);
-                            bookCategory = bookCategory.substring(2, bookCategory.length()-2);
-
-                            bookTitleTV.setText(bookTitle);
-                            bookAuthorTV.setText(authorName);
-                            bookDatePublishedTV.setText(datePublished);
-                            imageUrl = altered;
-                            System.out.println("IMAGE URL: " + imageUrl);
-                            Picasso.get().load(altered).into(bookCoverIV);
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // TODO: Handle error
-
-                    }
-                });
         queue.add(jsonObjectRequest);
     }
     @Override
