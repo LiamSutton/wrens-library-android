@@ -13,14 +13,16 @@ public class BookDisplay {
     private String b_cover;
     private boolean b_has_read;
     private Date b_date_added;
+    private String b_isbn;
 
-    public BookDisplay(int b_id, String bd_name, String bd_genre, String b_cover, boolean b_has_read, Date b_date_added) {
+    public BookDisplay(int b_id, String bd_name, String bd_genre, String b_cover, boolean b_has_read, Date b_date_added, String b_isbn) {
         this.b_id = b_id;
         this.bd_name = bd_name;
         this.bd_genre = bd_genre;
         this.b_cover = b_cover;
         this.b_has_read= b_has_read;
         this.b_date_added = b_date_added;
+        this.b_isbn = b_isbn;
     }
 
     public int getB_id() {
@@ -46,4 +48,6 @@ public class BookDisplay {
     public Date getB_date_added() {
         return b_date_added;
     }
+
+    public String getB_isbn() { return this.b_isbn; }
 }

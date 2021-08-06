@@ -90,7 +90,6 @@ public class AddBookFragment extends Fragment {
         bookTitleTV = (TextView)view.findViewById(R.id.tv_book_name);
         bookAuthorTV = (TextView)view.findViewById(R.id.tv_book_author);
         genreSP = (Spinner)view.findViewById(R.id.sp_genres);
-        bookDatePublishedTV = (TextView)view.findViewById(R.id.tv_book_published_date);
         bookCoverIV = (ImageView)view.findViewById(R.id.iv_cover_image);
         isbnSearchBtn = (Button)view.findViewById(R.id.isbn_search_btn);
         addBookBtn = (Button)view.findViewById(R.id.btn_add_book);
@@ -116,7 +115,7 @@ public class AddBookFragment extends Fragment {
         addBookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "ADDING BOOK", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Added book Wrenji <3", Toast.LENGTH_SHORT).show();
             }
         });
     }

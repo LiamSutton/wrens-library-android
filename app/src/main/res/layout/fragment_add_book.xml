@@ -7,27 +7,10 @@
     android:layout_height="match_parent"
     tools:context=".AddBookFragment">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="403dp"
-        android:layout_height="52dp"
-        android:background="@color/background"
-        android:gravity="center"
-        android:text="Add New Book"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
-
     <EditText
         android:id="@+id/isbn_input_et"
         android:layout_width="350dp"
-        android:layout_height="35dp"
+        android:layout_height="48dp"
         android:background="@color/cardview_dark_background"
         android:ems="10"
         android:gravity="center_horizontal|center_vertical"
@@ -40,41 +23,12 @@
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.294" />
-
-    <Button
-        android:id="@+id/isbn_search_btn"
-        android:layout_width="200dp"
-        android:layout_height="57dp"
-        android:text="Get Book Info"
-        android:textColor="@color/white"
-        app:backgroundTint="@color/purple_200"
-        app:cornerRadius="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.172" />
-
-    <Button
-        android:id="@+id/btn_add_book"
-        android:layout_width="200dp"
-        android:layout_height="57dp"
-        android:text="Add Book"
-        android:textColor="@color/white"
-        app:cornerRadius="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/isbn_input_et"
-        app:layout_constraintVertical_bias="0.968" />
+        app:layout_constraintVertical_bias="0.17" />
 
     <TextView
         android:id="@+id/tv_book_name"
         android:layout_width="350dp"
-        android:layout_height="35dp"
+        android:layout_height="48dp"
         android:background="@color/cardview_dark_background"
         android:gravity="center_horizontal|center_vertical"
         android:text="Book Title"
@@ -85,12 +39,12 @@
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.363" />
+        app:layout_constraintVertical_bias="0.26" />
 
     <TextView
         android:id="@+id/tv_book_author"
         android:layout_width="350dp"
-        android:layout_height="35dp"
+        android:layout_height="48dp"
         android:background="@color/cardview_dark_background"
         android:gravity="center_horizontal|center_vertical"
         android:text="Author"
@@ -101,40 +55,12 @@
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.432" />
-
-    <TextView
-        android:id="@+id/tv_book_published_date"
-        android:layout_width="350dp"
-        android:layout_height="35dp"
-        android:background="@color/cardview_dark_background"
-        android:gravity="center_horizontal|center_vertical"
-        android:text="Date Published"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.568" />
-
-    <ImageView
-        android:id="@+id/iv_cover_image"
-        android:layout_width="162dp"
-        android:layout_height="196dp"
-        android:src="@android:drawable/ic_menu_camera"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.841" />
+        app:layout_constraintVertical_bias="0.349" />
 
     <Spinner
         android:id="@+id/sp_genres"
         android:layout_width="350dp"
-        android:layout_height="35dp"
+        android:layout_height="48dp"
         android:background="@color/white"
         android:gravity="center_horizontal|center_vertical"
         android:textAlignment="center"
@@ -142,6 +68,46 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.434" />
+
+    <Button
+        android:id="@+id/isbn_search_btn"
+        android:layout_width="250dp"
+        android:layout_height="57dp"
+        android:text="Get Book Info"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/purple_200"
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.066" />
+
+    <Button
+        android:id="@+id/btn_add_book"
+        android:layout_width="250dp"
+        android:layout_height="57dp"
+        android:text="Add Book"
+        android:textColor="@color/white"
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/isbn_input_et"
+        app:layout_constraintVertical_bias="0.825" />
+
+    <ImageView
+        android:id="@+id/iv_cover_image"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/btn_add_book"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sp_genres"
+        tools:src="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

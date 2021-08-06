@@ -31,7 +31,10 @@ public class Book {
     @ColumnInfo(name = "b_date_added")
     private Date b_date_added;
 
-    public Book(int b_id, String b_name, int b_author_id, int b_genre_id, String b_cover, boolean b_has_read, Date b_date_added) {
+    @ColumnInfo(name = "b_isbn")
+    private String b_isbn;
+
+    public Book(int b_id, String b_name, int b_author_id, int b_genre_id, String b_cover, boolean b_has_read, Date b_date_added, String b_isbn) {
         this.b_id = b_id;
         this.b_name = b_name;
         this.b_author_id = b_author_id;
@@ -39,16 +42,18 @@ public class Book {
         this.b_cover = b_cover;
         this.b_has_read = b_has_read;
         this.b_date_added = b_date_added;
+        this.b_isbn = b_isbn;
     }
 
     @Ignore
-    public Book(String b_name, int b_author_id, int b_genre_id, String b_cover, boolean b_has_read, Date b_date_added) {
+    public Book(String b_name, int b_author_id, int b_genre_id, String b_cover, boolean b_has_read, Date b_date_added, String b_isbn) {
         this.b_name = b_name;
         this.b_author_id = b_author_id;
         this.b_genre_id = b_genre_id;
         this.b_cover = b_cover;
         this.b_has_read = b_has_read;
         this.b_date_added = b_date_added;
+        this.b_isbn = b_isbn;
     }
 
     public int getB_id() {
@@ -78,4 +83,6 @@ public class Book {
     public Date getB_date_added() {
         return b_date_added;
     }
+
+    public String getB_isbn() {return this.b_isbn; }
 }
