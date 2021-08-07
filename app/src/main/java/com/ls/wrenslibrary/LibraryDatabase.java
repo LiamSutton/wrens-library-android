@@ -1,17 +1,11 @@
 package com.ls.wrenslibrary;
 
 import android.content.Context;
-import android.os.strictmode.InstanceCountViolation;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
-import androidx.sqlite.db.SupportSQLiteDatabase;
-
-import java.util.concurrent.Executors;
 
 @Database(entities = {Author.class, Genre.class, Book.class, BookDisplay.class}, version = 1)
 @TypeConverters({Converters.class})
