@@ -1,8 +1,6 @@
 package com.ls.wrenslibrary;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,24 +20,15 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONStringer;
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 /**
@@ -71,16 +60,18 @@ public class AddBookFragment extends Fragment {
     EditText isbnET;
     TextView bookTitleTV;
     TextView bookAuthorTV;
-    TextView bookDatePublishedTV;
     ImageView bookCoverIV;
     Button isbnSearchBtn;
     Button addBookBtn;
     RequestQueue queue;
     Spinner genreSP;
     List<String> genreNames;
-    ArrayAdapter<String> spinnderAdapter;
+    ArrayAdapter<String> spinnerAdapter;
     BookJsonParser bookJsonParser;
     Context context;
+    BookDao bookDao;
+    AuthorDao authorDao;
+    GenreDao genreDao;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -93,14 +84,17 @@ public class AddBookFragment extends Fragment {
         bookCoverIV = (ImageView)view.findViewById(R.id.iv_cover_image);
         isbnSearchBtn = (Button)view.findViewById(R.id.isbn_search_btn);
         addBookBtn = (Button)view.findViewById(R.id.btn_add_book);
+        bookDao = LibraryDatabase.getInstance(context).bookDao();
+        authorDao = LibraryDatabase.getInstance(context).authorDao();
+        genreDao = LibraryDatabase.getInstance(context).genreDao();
         Executors.newSingleThreadExecutor().execute(new Runnable() {
             @Override
             public void run() {
                 genreNames = LibraryDatabase.getInstance(getContext()).genreDao().getAllGenreNames();
-                spinnderAdapter = new ArrayAdapter<>(getContext(), R.layout.custom_spinner_layout, genreNames);
-                spinnderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                genreSP.setAdapter(spinnderAdapter);
-                spinnderAdapter.notifyDataSetChanged();
+                spinnerAdapter = new ArrayAdapter<>(getContext(), R.layout.custom_spinner_layout, genreNames);
+                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                genreSP.setAdapter(spinnerAdapter);
+                spinnerAdapter.notifyDataSetChanged();
              }
         });
         genreSP.setSelection(0);
@@ -113,9 +107,36 @@ public class AddBookFragment extends Fragment {
         });
 
         addBookBtn.setOnClickListener(new View.OnClickListener() {
+            boolean isBookDuplicate = false;
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Added book Wrenji <3", Toast.LENGTH_SHORT).show();
+                Executors.newSingleThreadExecutor().execute(() -> {
+                    // check book isnt duplicate
+                    Book book = bookDao.getBookByIsbn(isbnET.getText().toString());
+                    Genre genre = genreDao.getGenreIdByName(genreSP.getSelectedItem().toString());
+
+                    if (book != null) { // book already exists in the database
+                        System.out.println(book.getB_name());
+                        isBookDuplicate = true;
+                    }
+                    else { // book doesn't exist in the database
+                        // check if author already exists in the database
+                        Author author = authorDao.getAuthorByName(bookJsonParser.getBookAuthor());
+                        if (author == null) { // add author to the database
+                            authorDao.insertAuthor(new Author(bookJsonParser.getBookAuthor()));
+                            author = authorDao.getAuthorByName(bookJsonParser.getBookAuthor()); // retrieve the new author
+
+                            // TODO: edit so has read can be altered
+                            // TODO: edit so current date / timestamp gets added to the database
+                            bookDao.insertBook(new Book(bookJsonParser.getBookName(), author.getA_id(), genre.getG_id(), bookJsonParser.getBookCoverImageUrl(), false, new Date(), isbnET.getText().toString()));
+                        }
+                    }
+                });
+                if (isBookDuplicate) {
+                    Toast.makeText(context, "This book is a duplicate Wrenji! <3", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "Added book to the library Wrenji! <3", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

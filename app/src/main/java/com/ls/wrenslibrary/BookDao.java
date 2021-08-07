@@ -17,6 +17,9 @@ public interface BookDao {
     @Query("SELECT * FROM book where b_name = (:b_name)")
     Book getBookByName(String b_name);
 
+    @Query("SELECT * FROM book where b_isbn = (:b_isbn)")
+    Book getBookByIsbn(String b_isbn);
+
     @Insert
     void insertBook(Book book);
 }
