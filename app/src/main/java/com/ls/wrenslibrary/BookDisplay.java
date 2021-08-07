@@ -9,15 +9,17 @@ public class BookDisplay {
     @PrimaryKey
     private int b_id;
     private String bd_name;
+    private String bd_author;
     private String bd_genre;
     private String b_cover;
     private boolean b_has_read;
     private Date b_date_added;
     private String b_isbn;
 
-    public BookDisplay(int b_id, String bd_name, String bd_genre, String b_cover, boolean b_has_read, Date b_date_added, String b_isbn) {
+    public BookDisplay(int b_id, String bd_name, String bd_author, String bd_genre, String b_cover, boolean b_has_read, Date b_date_added, String b_isbn) {
         this.b_id = b_id;
         this.bd_name = bd_name;
+        this.bd_author = bd_author;
         this.bd_genre = bd_genre;
         this.b_cover = b_cover;
         this.b_has_read= b_has_read;
@@ -32,6 +34,8 @@ public class BookDisplay {
     public String getBd_name() {
         return bd_name;
     }
+
+    public String getBd_author() { return bd_author; }
 
     public String getBd_genre() {
         return bd_genre;
